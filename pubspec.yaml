@@ -1,0 +1,39 @@
+name: submission
+description: "HerbaScan - Aplikasi identifikasi tanaman obat berbasis kamera & computer vision."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # --- dari pubspec lama Anda ---
+  provider: ^6.1.2
+  image_picker: ^1.1.2
+  tflite_flutter: ^0.11.0
+  image: ^4.3.0
+  csv: ^6.0.0 # tidak dipakai lagi (label dibaca manual); boleh dihapus
+
+  # --- baru untuk HerbaScan ---
+  camera: ^0.11.0+2 # preview kamera langsung
+  shared_preferences: ^2.3.2 # menyimpan data Koleksi Herbal
+  path_provider: ^2.1.4 # folder penyimpanan foto koleksi
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/models/model.tflite
+    - assets/models/labels.csv
+    # Folder wajib ada (isi opsional: sirih.jpg, lidah_buaya.jpg, dst).
+    - assets/plants/
