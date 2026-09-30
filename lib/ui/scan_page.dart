@@ -32,6 +32,10 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
   static const _liveInterval = Duration(milliseconds: 2500);
 
+  /// Fraksi area tengah gambar kamera yang dikirim ke model.
+  /// 0.65 ≈ bracket viewfinder; membuang ±35% tepi yang biasanya background.
+  static const _cameraCropFraction = 0.65;
+
   final ImagePicker _picker = ImagePicker();
 
   CameraController? _cam;
@@ -140,7 +144,10 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
     try {
       final shot = await c.takePicture();
       final file = File(shot.path);
-      final res = await scan.classify(file);
+      final res = await scan.classify(
+        file,
+        cropFraction: _cameraCropFraction,
+      );
       if (!mounted) return;
       _rememberFile(file);
       setState(() {

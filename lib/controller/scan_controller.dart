@@ -31,10 +31,13 @@ class ScanController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ClassificationResult> classify(File image) async {
+  Future<ClassificationResult> classify(
+    File image, {
+    double? cropFraction,
+  }) async {
     await init();
     if (!_ready) throw StateError(_error ?? 'Model belum siap.');
-    return _service.classify(image);
+    return _service.classify(image, cropFraction: cropFraction);
   }
 
   @override
