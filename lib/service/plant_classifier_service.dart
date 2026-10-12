@@ -34,6 +34,22 @@ class PlantClassifierService {
   /// Di bawah nilai ini hasil dianggap bukan tanaman obat yang dikenal.
   static const double confidenceThreshold = 0.45;
 
+  /// Model Teachable Machine (float) mengharapkan piksel di rentang -1..1,
+  /// yaitu (nilai / 127.5) - 1. Ubah ke false hanya bila model dilatih
+  /// dengan input 0..1 (misalnya dari notebook train_model.ipynb).
+  static const bool inputMinusOneToOne = true;
+
+  /// Auto-levels tidak dipakai saat latihan di Teachable Machine, jadi
+  /// dimatikan agar gambar di HP diproses sama seperti saat latihan.
+  static const bool useAutoNormalize = false;
+
+  /// Nama kelas "penolak" di Teachable Machine (huruf kecil).
+  static const Set<String> _rejectLabels = {
+    'bukan tanaman',
+    'lainnya',
+    'background',
+  };
+
   Interpreter? _interpreter;
   List<String> _labels = [];
   bool _isReady = false;
@@ -127,6 +143,10 @@ class PlantClassifierService {
     if (bestScore < confidenceThreshold || bestIndex >= _labels.length) {
       return const ClassificationResult.unknown();
     }
+    // Kelas "Bukan Tanaman" (foto latar/benda lain) dianggap tidak dikenali.
+    if (_rejectLabels.contains(_labels[bestIndex].toLowerCase())) {
+      return const ClassificationResult.unknown();
+    }
     return ClassificationResult(label: _labels[bestIndex], confidence: bestScore);
   }
 
@@ -138,6 +158,13 @@ class PlantClassifierService {
         height,
         (y) => List.generate(width, (x) {
           final o = (y * width + x) * 3;
+          if (inputMinusOneToOne) {
+            return [
+              rgb[o] / 127.5 - 1.0,
+              rgb[o + 1] / 127.5 - 1.0,
+              rgb[o + 2] / 127.5 - 1.0,
+            ];
+          }
           return [rgb[o] / 255.0, rgb[o + 1] / 255.0, rgb[o + 2] / 255.0];
         }),
       ),
@@ -206,7 +233,7 @@ Uint8List _prepareRgb(_PrepArgs a) {
   // ── 3. Normalize brightness/contrast (auto-levels sederhana) ──
   // Cari min dan max luminance, lalu stretch ke rentang 0–255.
   // Ini mengurangi dampak pencahayaan yang bervariasi dari kamera.
-  img = _autoNormalize(img);
+  if (PlantClassifierService.useAutoNormalize) img = _autoNormalize(img);
 
   // ── 4. Resize ke ukuran input model ──
   final resized = image_lib.copyResize(

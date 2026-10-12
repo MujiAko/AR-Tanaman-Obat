@@ -576,7 +576,7 @@ class _ResultCard extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Tanaman ini belum dikenali. Dekatkan kamera ke satu daun atau buah, '
+                    'Tanaman ini belum dikenali. Dekatkan kamera ke satu helai daun, '
                     'pakai cahaya cukup dan latar polos.',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
