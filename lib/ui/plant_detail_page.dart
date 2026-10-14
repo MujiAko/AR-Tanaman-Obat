@@ -54,6 +54,13 @@ class PlantDetailPage extends StatelessWidget {
                             color: AppColors.muted,
                           ),
                         ),
+                        if (plant.localNames.isNotEmpty) ...[
+                          const SizedBox(height: 6),
+                          Text(
+                            'Nama lokal: ${plant.localNames.join(', ')}',
+                            style: theme.textTheme.bodySmall,
+                          ),
+                        ],
                         const SizedBox(height: 12),
                         Wrap(
                           spacing: 8,
@@ -100,6 +107,20 @@ class PlantDetailPage extends StatelessWidget {
                               ],
                             ),
                           ),
+                        if (plant.compounds.isNotEmpty) ...[
+                          const SizedBox(height: 16),
+                          Text('Kandungan aktif',
+                              style: theme.textTheme.titleLarge),
+                          const SizedBox(height: 10),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: [
+                              for (final c in plant.compounds)
+                                _Pill(icon: Icons.science_outlined, text: c),
+                            ],
+                          ),
+                        ],
                         const SizedBox(height: 16),
                         Text('Cara pengolahan', style: theme.textTheme.titleLarge),
                         const SizedBox(height: 10),

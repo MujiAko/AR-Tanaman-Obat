@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Submission</string>
+	<string>HerbaScan</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -42,9 +42,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Aplikasi memerlukan akses kamera untuk memfoto makanan yang ingin diidentifikasi.</string>
+	<string>Aplikasi memerlukan akses kamera untuk memindai tanaman obat.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Aplikasi memerlukan akses galeri untuk memilih foto makanan yang ingin diidentifikasi.</string>
+	<string>Aplikasi memerlukan akses galeri untuk memilih foto tanaman obat yang ingin diidentifikasi.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

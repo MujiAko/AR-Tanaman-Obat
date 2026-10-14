@@ -234,7 +234,7 @@ class _ScanBanner extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  'Dekatkan kamera ke daun atau buah pada cahaya yang cukup.',
+                  'Dekatkan kamera ke satu helai daun pada cahaya yang cukup.',
                   style: TextStyle(color: Color(0xEBFFFFFF), fontSize: 13),
                 ),
                 const SizedBox(height: 14),

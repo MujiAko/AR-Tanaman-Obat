@@ -37,7 +37,7 @@ class ClassificatioinItemShimmer extends StatelessWidget {
           ColoredBox(
             color: Colors.black,
             child: Text(
-              "Food name",
+              "Plant name",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.headlineMedium,
